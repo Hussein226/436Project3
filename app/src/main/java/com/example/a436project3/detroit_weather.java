@@ -24,9 +24,10 @@ public class detroit_weather extends AppCompatActivity {
 
     private RequestQueue requestQueue;
 
-     Button homeButton;
+    Button homeButton;
 
-    TextView detroitWeather1, detroitDescription1, detroitWeather2, detroitDescription2, detroitWeather3, detroitDescription3, detroitWeather4, detroitDescription4, detroitWeather5, detroitDescription5;
+    TextView detroitTemperature1,detroitTemperature2,detroitTemperature3,detroitTemperature4,detroitTemperature5,
+            detroitWeather1, detroitDescription1, detroitWeather2, detroitDescription2, detroitWeather3, detroitDescription3, detroitWeather4, detroitDescription4, detroitWeather5, detroitDescription5;
 
 
     @Override
@@ -34,82 +35,115 @@ public class detroit_weather extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detroit_weather);
 
-        homeButton = (Button) findViewById(R.id.homeDetroit);
-        detroitWeather1 = (TextView) findViewById(R.id.detroitWeather1);
-        detroitDescription1 = (TextView) findViewById(R.id.detroitDescription1);
-        detroitWeather2 = (TextView) findViewById(R.id.detroitWeather2);
-        detroitDescription2 = (TextView) findViewById(R.id.detroitDescription2);
-        detroitWeather3 = (TextView) findViewById(R.id.detroitWeather3);
-        detroitDescription3 = (TextView) findViewById(R.id.detroitDescription3);
-        detroitWeather4 = (TextView) findViewById(R.id.detroitWeather4);
-        detroitDescription4 = (TextView) findViewById(R.id.detroitDescription4);
-        detroitWeather5 = (TextView) findViewById(R.id.detroitWeather5);
-        detroitDescription5 = (TextView) findViewById(R.id.detroitDescription5);
+        //temperature initialization
+        detroitTemperature1 = findViewById(R.id.DtemperatureDay1);
+        detroitTemperature2 = findViewById(R.id.DtemperatureDay2);
+        detroitTemperature3 = findViewById(R.id.DtemperatureDay3);
+        detroitTemperature4 = findViewById(R.id.DtemperatureDay4);
+        detroitTemperature5 = findViewById(R.id.DtemperatureDay5);
+
+        //Weather initialization
+        detroitWeather1 = findViewById(R.id.DweatherDay1);
+        detroitWeather2 = findViewById(R.id.DweatherDay2);
+        detroitWeather3 = findViewById(R.id.DweatherDay3);
+        detroitWeather4 = findViewById(R.id.DweatherDay4);
+        detroitWeather5 = findViewById(R.id.DweatherDay5);
+
+        //description initialization
+        detroitDescription1 = findViewById(R.id.DdescriptionDay1);
+        detroitDescription2 = findViewById(R.id.DdescriptionDay2);
+        detroitDescription3 = findViewById(R.id.DdescriptionDay3);
+        detroitDescription4 = findViewById(R.id.DdescriptionDay4);
+        detroitDescription5 = findViewById(R.id.DdescriptionDay5);
+
+
 
         requestQueue = Volley.newRequestQueue(this);
         //create object request
-        JsonObjectRequest jsonObjectRequest =
-                new JsonObjectRequest(
-                        Request.Method.GET, //the request method
-                        "https://api.openweathermap.org/data/2.5/forecast?q=Detroit&appid=5ec024a51d411153537af93a973485b3",
-                        null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-
-                                try {
 
 
-                                    for (int i = 0; i< 33; i = i +8){
+        String urlAPI = "https://api.openweathermap.org/data/2.5/forecast?q=Detroit&appid=5ec024a51d411153537af93a973485b3&units=imperial";
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlAPI, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
 
-                                        JSONArray list = response.getJSONArray("list");
-                                        JSONObject firstElement = list.getJSONObject(i);
-                                        JSONArray weatherArray = firstElement.getJSONArray("weather");
+                try {
 
 
 
-                                        //there's one object in the array
-                                        JSONObject currentWeather = weatherArray.getJSONObject(0);
-                                        //int id = currentWeather.getInt("id");
-                                        String mainWeather = currentWeather.getString("main");
-                                        String description =
-                                                currentWeather.getString("description");
-//                                        Log.i("JSON info", "ID: " + id);
-//                                        Log.i("JSON info", "main weather: " + mainWeather);
-//                                        Log.i("JSON info", "Description: " + description);
+                for(int i = 0; i < 5; i++){
 
-                                        if( i == 0){
-                                            detroitWeather1.setText("Weather: " + mainWeather);
-                                            detroitDescription1.setText("Description: " + description);
 
-                                        }
-                                        else if( i == 8){
+                    JSONArray list = response.getJSONArray("list");
 
-                                        }
-                                        else if (i == 16){
+                    JSONObject Obj = list.getJSONObject(i);
 
-                                        }
-                                        else if(i == 24){
+                    JSONObject mainObj = Obj.getJSONObject("main");
 
-                                        }
-                                        else if (i == 32){
 
-                                        }
-                                    }
-                                    //get description of weather
+                    JSONArray weatherArray = Obj.getJSONArray("weather");
+                    JSONObject weatherObj = weatherArray.getJSONObject(0);
 
-                                }
-                                catch(JSONException ex) {
-                                    Log.e("JSON Error", ex.getMessage());
-                                }
-                            }
-                        },
-                        new Response.ErrorListener(){
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                            }
-                        }
-                );//end of JSON object request
+
+                    String temperature = mainObj.getString("temp");
+                    String weather = weatherObj.getString("main");
+                    String description = weatherObj.getString("description");
+
+                    temperature = roundTemperature(temperature);
+
+
+                    if(i == 0){
+                        detroitTemperature1.setText(temperature);
+                        detroitWeather1.setText(weather);
+                        detroitDescription1.setText(description);
+                    }
+                    else if(i == 1){
+
+                        detroitTemperature2.setText(temperature);
+                        detroitWeather2.setText(weather);
+                        detroitDescription2.setText(description);
+
+                    }
+                    else if (i == 2){
+
+                        detroitTemperature3.setText(temperature);
+                        detroitWeather3.setText(weather);
+                        detroitDescription3.setText(description);
+
+                    }
+                    else if (i == 3){
+
+                        detroitTemperature4.setText(temperature);
+                        detroitWeather4.setText(weather);
+                        detroitDescription4.setText(description);
+
+                    }
+                    else if(i == 4){
+
+                        detroitTemperature5.setText(temperature);
+                        detroitWeather5.setText(weather);
+                        detroitDescription5.setText(description);
+
+                    }
+
+
+
+                }
+
+
+            }catch(JSONException e){
+                e.printStackTrace();
+                System.out.println("errorrrororororororor");
+            }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                System.out.println("Still not responding!!!");
+            }
+        });
+
         requestQueue.add(jsonObjectRequest);
 
 
@@ -117,6 +151,16 @@ public class detroit_weather extends AppCompatActivity {
     }//end onCreate
 
 
+    public String roundTemperature(String init){
+
+        double temp = Double.parseDouble(init);
+
+        int doubleInit = (int)temp;
+
+        String result = Integer.toString(doubleInit);
+        return result;
+
+    }
     public void homeActivity(){
         Intent intent = new Intent(this, MainActivity.class);
 
