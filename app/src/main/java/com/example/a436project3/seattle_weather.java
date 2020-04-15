@@ -69,10 +69,13 @@ public class seattle_weather extends AppCompatActivity {
             public void onResponse(JSONObject response) {
 
                 try{
-                    for(int i = 0; i < 5; i++){
+
+                    JSONArray list = response.getJSONArray("list");
+
+                    for(int i = 0; i < list.length(); i = i + 8){
 
 
-                        JSONArray list = response.getJSONArray("list");
+
 
                         JSONObject Obj = list.getJSONObject(i);
 
@@ -95,28 +98,28 @@ public class seattle_weather extends AppCompatActivity {
                             SWeather1.setText(weather);
                             SDescription1.setText(description);
                         }
-                        else if(i == 1){
+                        else if(i == 8){
 
                             STemperature2.setText(temperature);
                             SWeather2.setText(weather);
                             SDescription2.setText(description);
 
                         }
-                        else if (i == 2){
+                        else if (i == 16){
 
                             STemperature3.setText(temperature);
                             SWeather3.setText(weather);
                             SDescription3.setText(description);
 
                         }
-                        else if (i == 3){
+                        else if (i == 24){
 
                             STemperature4.setText(temperature);
                             SWeather4.setText(weather);
                             SDescription4.setText(description);
 
                         }
-                        else if(i == 4){
+                        else if(i == 32){
 
                             STemperature5.setText(temperature);
                             SWeather5.setText(weather);

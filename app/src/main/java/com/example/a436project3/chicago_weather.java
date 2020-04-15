@@ -70,10 +70,12 @@ public class chicago_weather extends AppCompatActivity {
                 try {
 
 
-                    for (int i = 0; i < 5; i++) {
+                    JSONArray list = response.getJSONArray("list");
+
+                    for (int i = 0; i < list.length(); i++) {
 
 
-                        JSONArray list = response.getJSONArray("list");
+
 
                         JSONObject Obj = list.getJSONObject(i);
 
@@ -95,25 +97,25 @@ public class chicago_weather extends AppCompatActivity {
                             chicagoTemperature1.setText(temperature);
                             chicagoWeather1.setText(weather);
                             chicagoDescription1.setText(description);
-                        } else if (i == 1) {
+                        } else if (i == 8) {
 
                             chicagoTemperature2.setText(temperature);
                             chicagoWeather2.setText(weather);
                             chicagoDescription2.setText(description);
 
-                        } else if (i == 2) {
+                        } else if (i == 16) {
 
                             chicagoTemperature3.setText(temperature);
                             chicagoWeather3.setText(weather);
                             chicagoDescription3.setText(description);
 
-                        } else if (i == 3) {
+                        } else if (i == 24) {
 
                             chicagoTemperature4.setText(temperature);
                             chicagoWeather4.setText(weather);
                             chicagoDescription4.setText(description);
 
-                        } else if (i == 4) {
+                        } else if (i == 32) {
 
                             chicagoTemperature5.setText(temperature);
                             chicagoWeather5.setText(weather);

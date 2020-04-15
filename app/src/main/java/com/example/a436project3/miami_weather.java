@@ -67,10 +67,12 @@ public class miami_weather extends AppCompatActivity {
 
                 try{
 
-                    for(int i = 0; i < 5; i++){
+                    JSONArray list = response.getJSONArray("list");
+
+                    for(int i = 0; i < list.length(); i = i + 8){
 
 
-                        JSONArray list = response.getJSONArray("list");
+
 
                         JSONObject Obj = list.getJSONObject(i);
 
@@ -93,28 +95,28 @@ public class miami_weather extends AppCompatActivity {
                             miamiWeather1.setText(weather);
                             miamiDescription1.setText(description);
                         }
-                        else if(i == 1){
+                        else if(i == 8){
 
                             miamiTemperature2.setText(temperature);
                             miamiWeather2.setText(weather);
                             miamiDescription2.setText(description);
 
                         }
-                        else if (i == 2){
+                        else if (i == 16){
 
                             miamiTemperature3.setText(temperature);
                             miamiWeather3.setText(weather);
                             miamiDescription3.setText(description);
 
                         }
-                        else if (i == 3){
+                        else if (i == 24){
 
                             miamiTemperature4.setText(temperature);
                             miamiWeather4.setText(weather);
                             miamiDescription4.setText(description);
 
                         }
-                        else if(i == 4){
+                        else if(i == 32){
 
                             miamiTemperature5.setText(temperature);
                             miamiWeather5.setText(weather);

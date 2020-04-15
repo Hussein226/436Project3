@@ -69,12 +69,12 @@ public class detroit_weather extends AppCompatActivity {
 
                 try {
 
-
-
-                for(int i = 0; i < 5; i++){
-
-
                     JSONArray list = response.getJSONArray("list");
+
+                for(int i = 0; i < list.length(); i = i + 8){
+
+
+
 
                     JSONObject Obj = list.getJSONObject(i);
 
@@ -97,28 +97,28 @@ public class detroit_weather extends AppCompatActivity {
                         detroitWeather1.setText(weather);
                         detroitDescription1.setText(description);
                     }
-                    else if(i == 1){
+                    else if(i == 8){
 
                         detroitTemperature2.setText(temperature);
                         detroitWeather2.setText(weather);
                         detroitDescription2.setText(description);
 
                     }
-                    else if (i == 2){
+                    else if (i == 16){
 
                         detroitTemperature3.setText(temperature);
                         detroitWeather3.setText(weather);
                         detroitDescription3.setText(description);
 
                     }
-                    else if (i == 3){
+                    else if (i == 24){
 
                         detroitTemperature4.setText(temperature);
                         detroitWeather4.setText(weather);
                         detroitDescription4.setText(description);
 
                     }
-                    else if(i == 4){
+                    else if(i == 32){
 
                         detroitTemperature5.setText(temperature);
                         detroitWeather5.setText(weather);
